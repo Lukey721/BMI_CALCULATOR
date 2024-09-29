@@ -1,0 +1,5 @@
+{
+    "appService.preDeployTask": "publish-release",
+    "appService.deploySubpath": "bmi2021\\bin\\Release\\net8.0\\publish",
+    "appService.defaultWebAppToDeploy": "/subscriptions/ecf43d29-ef2c-4893-9b1a-253103822053/resourceGroups/DefaultResourceGroup-NEU/providers/Microsoft.Web/sites/BMI"
+}
