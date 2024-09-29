@@ -1,0 +1,41 @@
+name: Azure Web App Deployment
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    # Setup .NET Core
+    - name: Set up .NET Core
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: '8.x'  # Adjust to your .NET version
+
+    # Build the application
+    - name: Build with dotnet
+      run: dotnet build --configuration Release
+
+    # Publish the application
+    - name: Publish with dotnet
+      run: dotnet publish -c Release -o ./publish
+
+    # Login to Azure using the service principal
+    - name: 'Login to Azure'
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    # Deploy to Azure Web App
+    - name: 'Deploy to Azure WebApp'
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: 'BMI' # Replace with your Azure Web App name
+        slot-name: 'production'
+        package: ./publish
