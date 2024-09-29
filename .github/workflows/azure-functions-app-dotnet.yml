@@ -53,6 +53,12 @@ jobs:
         dotnet build --configuration Release --output ./output
         popd
 
+                      
+   -name: Azure Login      
+    uses: Azure/login@v2.2.0
+
+
+
     - name: 'Run Azure Functions Action'
       uses: Azure/functions-action@v1
       id: fa
